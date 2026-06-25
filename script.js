@@ -180,7 +180,7 @@ function setupControls() {
 }
 
 async function fetchJson(path) {
-  const response = await fetch(path, { cache: "no-store" });
+  const response = await fetch(path, { cache: "default" });
   if (!response.ok) throw new Error(`Unable to load ${path}`);
   return response.json();
 }
@@ -195,7 +195,7 @@ function safeExternalLink(url) {
 function renderCourses(courses) {
   document.querySelectorAll("[data-course-grid]").forEach((grid) => {
     grid.innerHTML = courses.map((course, index) => `
-      <a class="course-card reveal" href="${course.url}" style="transition-delay:${index * 80}ms">
+      <a class="course-card reveal" href="${encodeURI(course.url)}" style="transition-delay:${index * 80}ms">
         <span class="course-number" aria-hidden="true">${course.shortLabel}</span>
         <h3>${state.language === "es" ? course.nameEs : course.name}</h3>
         <p>${state.language === "es" ? course.descriptionEs : course.description}</p>
@@ -239,6 +239,9 @@ async function loadSiteContent() {
     renderCourses(site.courses);
   } catch (error) {
     console.error(error);
+    document.querySelectorAll('[data-course-grid]').forEach((grid) => {
+      grid.innerHTML = `<div class="error-state" role="alert">${translations[state.language].loadError}</div>`;
+    });
   }
 }
 
