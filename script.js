@@ -180,7 +180,7 @@ function setupControls() {
 }
 
 async function fetchJson(path) {
-  const response = await fetch(path, { cache: "default" });
+  const response = await fetch(path, { cache: "no-cache" });
   if (!response.ok) throw new Error(`Unable to load ${path}`);
   return response.json();
 }
