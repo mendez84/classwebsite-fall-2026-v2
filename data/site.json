@@ -1,7 +1,7 @@
 {
   "term": "Fall 2026",
-  "announcement": "Fall 2026 course information will be posted here before the first day of school.",
-  "announcementEs": "La información de los cursos de otoño de 2026 se publicará aquí antes del primer día de clases.",
+  "announcement": "Welcome to Week 0. The first day of school is Wednesday, August 5, 2026. Use Google Classroom for private class posts, assignments, and submissions.",
+  "announcementEs": "Bienvenidos a la Semana 0. El primer día de clases es el miércoles 5 de agosto de 2026. Usa Google Classroom para publicaciones, tareas y entregas privadas de la clase.",
   "contact": { "email": "mmendez1@psusd.us" },
   "courses": [
     { "name": "Financial Algebra", "nameEs": "Álgebra Financiera", "shortLabel": "$", "url": "financial-algebra.html", "description": "Algebra applied to income, banking, credit, investing, taxes, and everyday financial decisions.", "descriptionEs": "Álgebra aplicada a ingresos, banca, crédito, inversiones, impuestos y decisiones financieras cotidianas." },

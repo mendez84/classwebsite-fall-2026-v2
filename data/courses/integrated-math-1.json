@@ -5,17 +5,15 @@
   "descriptionEs": "Desarrolla bases sólidas en álgebra, funciones, geometría, estadística y razonamiento matemático.",
   "weeks": [
     {
-      "id": "2026-fall-week-01",
-      "label": "Week 1 — Patterns and representations",
-      "startDate": "2026-08-10",
-      "endDate": "2026-08-14",
+      "id": "2026-fall-week-00",
+      "label": "Week 0 — Welcome and course setup",
+      "startDate": "2026-08-05",
+      "endDate": "2026-08-07",
       "status": "current",
       "days": [
-        { "dayLabel": "Monday", "dateLabel": "Aug 10", "title": "Course welcome", "summary": "Learn our routines and explore what mathematical reasoning looks like." },
-        { "dayLabel": "Tuesday", "dateLabel": "Aug 11", "title": "Notice and wonder", "summary": "Describe patterns using words, tables, and diagrams." },
-        { "dayLabel": "Wednesday", "dateLabel": "Aug 12", "title": "From patterns to rules", "summary": "Connect visual growth to numerical expressions." },
-        { "dayLabel": "Thursday", "dateLabel": "Aug 13", "title": "Multiple representations", "summary": "Compare tables, graphs, equations, and contexts." },
-        { "dayLabel": "Friday", "dateLabel": "Aug 14", "title": "Reasoning check", "summary": "Explain how two representations communicate the same relationship." }
+        { "dayLabel": "Wednesday", "dateLabel": "Aug 5", "title": "Course welcome", "summary": "Meet the class, review course routines, and learn how to access Google Classroom." },
+        { "dayLabel": "Thursday", "dateLabel": "Aug 6", "title": "Routines and tools", "summary": "Set up materials, practice our class routines, and explore the tools we will use." },
+        { "dayLabel": "Friday", "dateLabel": "Aug 7", "title": "First-week check-in", "summary": "Complete the opening check-in and reflect on how you will show your mathematical thinking." }
       ]
     }
   ]
