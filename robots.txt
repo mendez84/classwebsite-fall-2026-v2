@@ -1,3 +1,3 @@
 User-agent: *
 Allow: /
-Sitemap: https://mendez84.github.io/Teacher-Website/sitemap.xml
+Sitemap: https://mendez84.github.io/classwebsite-fall-2026-v2/sitemap.xml
