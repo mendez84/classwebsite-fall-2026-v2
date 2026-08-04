@@ -168,6 +168,16 @@ h1 { margin-bottom: 20px; font-size: clamp(2.55rem, 7vw, 5.5rem); max-width: 11c
 .announcement-icon { width: 42px; height: 42px; display: grid; place-items: center; border-radius: 12px; background: var(--brand); color: var(--on-brand); }
 .announcement h2 { margin-bottom: 4px; font-size: 1.08rem; }
 .announcement p { margin: 0; color: var(--muted); }
+.schedule-card { overflow: hidden; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); box-shadow: var(--shadow-sm); }
+.schedule-meta { display: flex; justify-content: space-between; gap: 16px; padding: 18px 20px; border-bottom: 1px solid var(--line); color: var(--muted); }
+.schedule-meta strong { color: var(--ink); }
+.schedule-grid { display: grid; grid-template-columns: repeat(2, 1fr); }
+.schedule-row { display: flex; justify-content: space-between; gap: 16px; padding: 14px 20px; border-bottom: 1px solid var(--line); color: var(--muted); }
+.schedule-row:nth-child(odd) { border-right: 1px solid var(--line); }
+.schedule-row:nth-last-child(-n+2) { border-bottom: 0; }
+.schedule-row strong { color: var(--ink); white-space: nowrap; }
+.schedule-row-lunch { background: var(--brand-soft); }
+.resource-card-alert { border-color: color-mix(in srgb, var(--accent) 55%, var(--line)); background: color-mix(in srgb, var(--accent) 9%, var(--surface)); }
 
 .course-grid, .resource-grid { display: grid; gap: 18px; }
 .course-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -258,6 +268,11 @@ h1 { margin-bottom: 20px; font-size: clamp(2.55rem, 7vw, 5.5rem); max-width: 11c
   .course-grid, .resource-grid { grid-template-columns: 1fr; }
   .section-head { align-items: start; flex-direction: column; }
   .announcement { grid-template-columns: 1fr; }
+  .schedule-meta { align-items: flex-start; flex-direction: column; gap: 4px; }
+  .schedule-grid { grid-template-columns: 1fr; }
+  .schedule-row:nth-child(odd) { border-right: 0; }
+  .schedule-row:nth-last-child(-n+2) { border-bottom: 1px solid var(--line); }
+  .schedule-row:last-child { border-bottom: 0; }
   .day { grid-template-columns: 1fr; gap: 7px; }
   .week-header { flex-direction: column; gap: 5px; }
   .week-dates { white-space: normal; }

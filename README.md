@@ -1,6 +1,6 @@
 # Mr. Mendez Math — Fall 2026 local redesign
 
-This is an isolated local redesign of the public classroom hub. It has **no Git remote** and cannot affect the current live website unless a remote is deliberately added later.
+This repository contains the Fall 2026 version 2 public classroom hub. The GitHub remote is `mendez84/classwebsite-fall-2026-v2`; changes reach the public site after they are committed and pushed.
 
 ## Preview locally
 
@@ -38,6 +38,11 @@ Never add student names, student email addresses, grades, student work without p
 ## Translation workflow
 
 Navigation and essential family information support English and Spanish. Spanish text in `script.js` is an AI-assisted draft and must be reviewed by Mr. Mendez before any public launch. Weekly assignment details remain in English.
+
+## Current public information
+
+- The homepage includes the official CCHS Wednesday late-start schedule for August 5, 2026 and links to the school schedule page.
+- The Resources page includes the classroom CCHS phone/device policy and links to the district announcement. Keep the syllabus language aligned with the classroom policy.
 
 ## Before publishing
 
