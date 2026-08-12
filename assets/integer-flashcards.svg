@@ -1,1 +1,9 @@
-PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0OCA0OCIgcm9sZT0iaW1nIiBhcmlhLWxhYmVsbGVkYnk9InRpdGxlIGRlc2MiPgogIDx0aXRsZSBpZD0idGl0bGUiPkludGVnZXIgRmxhc2hjYXJkczwvdGl0bGU+CiAgPGRlc2MgaWQ9ImRlc2MiPlR3byBvdmVybGFwcGluZyBjYXJkcyB3aXRoIGEgcG9zaXRpdmUgYW5kIG5lZ2F0aXZlIHNpZ248L2Rlc2M+CiAgPHJlY3Qgd2lkdGg9IjQ4IiBoZWlnaHQ9IjQ4IiByeD0iMTQiIGZpbGw9IiMxNzY5YzIiLz4KICA8cmVjdCB4PSIxMCIgeT0iOCIgd2lkdGg9IjIyIiBoZWlnaHQ9IjI4IiByeD0iNCIgZmlsbD0iI2ZmZiIgdHJhbnNmb3JtPSJyb3RhdGUoLTggMTAgOCkiLz4KICA8cmVjdCB4PSIxOCIgeT0iMTIiIHdpZHRoPSIyMiIgaGVpZ2h0PSIyOCIgcng9IjQiIGZpbGw9IiNmZmFkNWYiIHRyYW5zZm9ybT0icm90YXRlKDggMTggMTIpIi8+CiAgPHBhdGggZD0iTTI5IDIxaDhNMzMgMTd2OCIgc3Ryb2tlPSIjMTAyMDNhIiBzdHJva2Utd2lkdGg9IjIuNSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+CiAgPHBhdGggZD0iTTEyIDI5aDgiIHN0cm9rZT0iIzE3NjljMiIgc3Ryb2tlLXdpZHRoPSIyLjUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPgo8L3N2Zz4K
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" role="img" aria-labelledby="title desc">
+  <title id="title">Integer Flashcards</title>
+  <desc id="desc">Two overlapping cards with a positive and negative sign</desc>
+  <rect width="48" height="48" rx="14" fill="#1769c2"/>
+  <rect x="10" y="8" width="22" height="28" rx="4" fill="#fff" transform="rotate(-8 10 8)"/>
+  <rect x="18" y="12" width="22" height="28" rx="4" fill="#ffad5f" transform="rotate(8 18 12)"/>
+  <path d="M29 21h8M33 17v8" stroke="#10203a" stroke-width="2.5" stroke-linecap="round"/>
+  <path d="M12 29h8" stroke="#1769c2" stroke-width="2.5" stroke-linecap="round"/>
+</svg>
