@@ -126,9 +126,10 @@ main { min-height: 66vh; }
 .eyebrow { display: flex; align-items: center; gap: 9px; margin: 0 0 14px; color: var(--brand-strong); font-size: .78rem; font-weight: 850; letter-spacing: .12em; text-transform: uppercase; }
 .eyebrow::before { content: ""; width: 28px; height: 3px; border-radius: 2px; background: var(--accent); }
 h1, h2, h3 { margin-top: 0; line-height: 1.12; letter-spacing: -.035em; }
-h1 { margin-bottom: 20px; font-size: clamp(2.55rem, 7vw, 5.5rem); max-width: 11ch; }
+.hero-kicker { margin-bottom: 18px; font-size: clamp(1.28rem, 2.7vw, 1.78rem); letter-spacing: .1em; }
+.hero-kicker::before { flex: 0 0 28px; }
 .hero-copy { max-width: 58ch; margin: 0; color: var(--muted); font-size: clamp(1.02rem, 1.8vw, 1.16rem); }
-.hero-course-pills { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px; }
+.hero-course-pills { display: flex; flex-wrap: wrap; column-gap: 16px; row-gap: 10px; margin-top: 24px; }
 .hero-course-pills a {
   display: inline-flex;
   align-items: center;
