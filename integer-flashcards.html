@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#1769c2">
+  <meta name="description" content="Practice positive and negative integer operations with instant feedback and visual explanations.">
+  <title>Integer Flashcards | Mr. Mendez Math</title>
+  <meta property="og:title" content="Integer Flashcards | Mr. Mendez Math">
+  <meta property="og:description" content="Practice positive and negative integer operations with instant feedback and visual explanations.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://mendez84.github.io/classwebsite-fall-2026-v2/integer-flashcards.html">
+  <meta property="og:image" content="https://mendez84.github.io/classwebsite-fall-2026-v2/assets/integer-flashcards.svg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Integer Flashcards | Mr. Mendez Math">
+  <meta name="twitter:description" content="Practice positive and negative integer operations with instant feedback and visual explanations.">
+  <link rel="canonical" href="https://mendez84.github.io/classwebsite-fall-2026-v2/integer-flashcards.html">
+  <link rel="icon" href="assets/integer-flashcards.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap">
+  <link rel="stylesheet" href="integer-flashcards.css">
+  <script src="integer-flashcards.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to practice</a>
+  <header class="app-header">
+    <div class="shell header-inner">
+      <a class="brand" href="index.html" aria-label="Back to Mr. Mendez Math home">
+        <img src="assets/integer-flashcards.svg" alt="" width="38" height="38">
+        <span><strong>Integer</strong> Flashcards</span>
+      </a>
+      <div class="header-actions">
+        <button class="icon-button" type="button" data-theme-toggle aria-label="Switch color theme">◐</button>
+        <a class="back-link" href="resources.html">Back to resources</a>
+      </div>
+    </div>
+  </header>
+
+  <main id="main" class="shell app-main">
+    <section class="intro" aria-labelledby="page-title">
+      <div>
+        <p class="eyebrow">Practice · explain · improve</p>
+        <h1 id="page-title">Make integers feel predictable.</h1>
+        <p class="intro-copy">Work through positive and negative numbers, get immediate feedback, and open a visual explanation whenever you need one.</p>
+      </div>
+      <div class="privacy-note"><span aria-hidden="true">✓</span><span>Your progress stays on this device. No account or student data is collected.</span></div>
+    </section>
+
+    <section class="panel setup-panel" data-view="setup" aria-labelledby="setup-title">
+      <div class="panel-heading">
+        <div><p class="eyebrow">Choose your deck</p><h2 id="setup-title">What do you want to practice?</h2></div>
+        <span class="deck-count">105-card style deck</span>
+      </div>
+      <form data-setup-form>
+        <fieldset>
+          <legend>Operations</legend>
+          <div class="choice-grid choice-grid-5">
+            <label class="choice-card"><input type="radio" name="operation" value="mixed" checked><span class="choice-icon">±</span><span><strong>Mixed</strong><small>All four</small></span></label>
+            <label class="choice-card"><input type="radio" name="operation" value="addition"><span class="choice-icon">＋</span><span><strong>Add</strong><small>Combine</small></span></label>
+            <label class="choice-card"><input type="radio" name="operation" value="subtraction"><span class="choice-icon">−</span><span><strong>Subtract</strong><small>Add opposite</small></span></label>
+            <label class="choice-card"><input type="radio" name="operation" value="multiplication"><span class="choice-icon">×</span><span><strong>Multiply</strong><small>Sign pairs</small></span></label>
+            <label class="choice-card"><input type="radio" name="operation" value="division"><span class="choice-icon">÷</span><span><strong>Divide</strong><small>Exact answers</small></span></label>
+          </div>
+        </fieldset>
+        <div class="settings-row">
+          <fieldset class="setting-group"><legend>Difficulty</legend><div class="segmented"><label><input type="radio" name="level" value="1" checked><span>Level 1 <small>Two numbers</small></span></label><label><input type="radio" name="level" value="2"><span>Level 2 <small>Multi-step</small></span></label></div></fieldset>
+          <fieldset class="setting-group"><legend>Mode</legend><div class="segmented"><label><input type="radio" name="mode" value="practice" checked><span>Practice <small>10 cards</small></span></label><label><input type="radio" name="mode" value="timed"><span>Timed <small>60 seconds</small></span></label></div></fieldset>
+        </div>
+        <button class="button button-primary start-button" type="submit">Start practicing <span aria-hidden="true">→</span></button>
+      </form>
+    </section>
+
+    <section class="panel practice-panel" data-view="practice" hidden aria-labelledby="practice-title">
+      <div class="practice-topline"><div><span class="pill" data-session-label>Practice</span><span class="muted" data-deck-label>Mixed · Level 1</span></div><div class="session-stats"><span><strong data-progress>1</strong> / <span data-total>10</span></span><span class="timer" data-timer-wrap hidden>⏱ <strong data-timer>60</strong>s</span></div></div>
+      <div class="progress-track" aria-hidden="true"><span data-progress-bar></span></div>
+      <div class="problem-card" data-problem-card>
+        <p class="problem-label">Solve for the integer</p>
+        <div class="expression" data-expression aria-live="polite"></div>
+        <p class="sr-only" data-expression-spoken></p>
+        <form class="answer-form" data-answer-form>
+          <label for="answer">Your answer</label>
+          <div class="answer-row"><input id="answer" name="answer" type="text" inputmode="numeric" autocomplete="off" spellcheck="false" aria-describedby="answer-hint feedback"><button class="button button-primary" type="submit">Check <span aria-hidden="true">↵</span></button></div>
+          <p id="answer-hint" class="field-hint">Type a number, then press Enter.</p>
+        </form>
+        <div class="feedback" id="feedback" data-feedback aria-live="polite" hidden></div>
+        <div class="action-row" data-action-row hidden><button class="button button-secondary" type="button" data-visual-button>Show a visual</button><button class="button button-primary" type="button" data-next-button>Next card <span aria-hidden="true">→</span></button></div>
+        <div class="explanation" data-explanation hidden></div>
+      </div>
+      <div class="shortcut-row"><span><kbd>N</kbd> next card</span><span><kbd>S</kbd> show solution</span><button type="button" class="text-button" data-end-session>End session</button></div>
+    </section>
+
+    <section class="panel results-panel" data-view="results" hidden aria-labelledby="results-title">
+      <div class="results-hero"><span class="results-mark" aria-hidden="true">✓</span><p class="eyebrow">Session complete</p><h2 id="results-title">Nice work showing up.</h2><p data-results-summary></p></div>
+      <div class="results-grid"><div class="score-card"><span>Accuracy</span><strong data-results-accuracy>0%</strong><small data-results-attempts>0 correct of 0 answered</small></div><div class="score-card"><span>Best streak</span><strong data-results-streak>0</strong><small>in a row</small></div><div class="score-card"><span>Cards</span><strong data-results-cards>0</strong><small>completed</small></div></div>
+      <div class="missed-section" data-missed-section hidden><h3>Keep an eye on these</h3><ul data-missed-list></ul></div>
+      <div class="action-row results-actions"><button class="button button-primary" type="button" data-restart-button>Practice again</button><button class="button button-secondary" type="button" data-home-button>Change deck</button></div>
+    </section>
+
+    <section class="progress-summary panel" data-progress-summary aria-labelledby="progress-title">
+      <div class="panel-heading"><div><p class="eyebrow">On this device</p><h2 id="progress-title">Your practice snapshot</h2></div><button class="text-button danger" type="button" data-reset-progress>Reset progress</button></div>
+      <div class="snapshot-grid"><div><strong data-snapshot-answered>0</strong><span>answered</span></div><div><strong data-snapshot-accuracy>—</strong><span>accuracy</span></div><div><strong data-snapshot-streak>0</strong><span>best streak</span></div></div>
+      <p class="snapshot-empty" data-snapshot-empty>Finish a session and your private snapshot will appear here.</p>
+    </section>
+  </main>
+  <footer class="app-footer"><div class="shell"><span>Integer Flashcards · Mr. Mendez Math</span><span>Practice is private to this browser.</span></div></footer>
+</body>
+</html>
