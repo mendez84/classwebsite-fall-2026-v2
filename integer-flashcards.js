@@ -510,6 +510,19 @@
   $("[data-end-session]").addEventListener("click", finishSession);
   $("[data-restart-button]").addEventListener("click", () => startSession(state.settings));
   $("[data-home-button]").addEventListener("click", () => setView("setup"));
+  $$("[data-nav-home]").forEach(btn => {
+    btn.addEventListener("click", () => {
+      if (state.view === "practice" && state.session && state.session.answered > 0 && !state.session.saved) {
+        if (confirm("Return to deck selection? Current round will end.")) {
+          stopTimer();
+          setView("setup");
+        }
+      } else {
+        stopTimer();
+        setView("setup");
+      }
+    });
+  });
   $("[data-reset-progress]").addEventListener("click", () => { localStorage.removeItem(STORAGE_KEY); renderSnapshot(); });
   $("[data-theme-toggle]").addEventListener("click", () => { state.theme = state.theme === "dark" ? "light" : "dark"; localStorage.setItem("mendez-theme", state.theme); applyTheme(); });
   document.addEventListener("keydown", (event) => { if (state.view !== "practice" || event.target.matches("input,button")) return; if (event.key.toLowerCase() === "n") nextCard(); if (event.key.toLowerCase() === "s") showExplanation(); });

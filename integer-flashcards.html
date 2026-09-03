@@ -26,13 +26,14 @@
   <a class="skip-link" href="#main">Skip to practice</a>
   <header class="app-header">
     <div class="shell header-inner">
-      <a class="brand" href="index.html" aria-label="Back to Mr. Mendez Math home">
+      <button class="brand" type="button" data-nav-home aria-label="Integer Flashcards Home" style="background:none;border:0;cursor:pointer;font:inherit;text-align:left;padding:0">
         <img src="assets/integer-flashcards.svg" alt="" width="38" height="38">
         <span><strong>Integer</strong> Flashcards</span>
-      </a>
+      </button>
       <div class="header-actions">
+        <button class="button button-secondary" type="button" data-nav-home style="min-height:36px;padding:4px 12px;font-size:0.75rem">🏠 Deck Home</button>
         <button class="icon-button" type="button" data-theme-toggle aria-label="Switch color theme">◐</button>
-        <a class="back-link" href="resources.html">Back to resources</a>
+        <a class="back-link" href="index.html" title="Exit to Mr. Mendez Math class website">Exit to Class Site →</a>
       </div>
     </div>
   </header>
@@ -72,7 +73,7 @@
     </section>
 
     <section class="panel practice-panel" data-view="practice" hidden aria-labelledby="practice-title">
-      <div class="practice-topline"><div><span class="pill" data-session-label>Practice</span><span class="muted" data-deck-label>Mixed · Level 1</span></div><div class="session-stats"><span><strong data-progress>1</strong> / <span data-total>10</span></span><span class="timer" data-timer-wrap hidden>⏱ <strong data-timer>60</strong>s</span></div></div>
+      <div class="practice-topline"><div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap"><span class="pill" data-session-label>Practice</span><span class="muted" data-deck-label>Mixed · Level 1</span><button type="button" class="button button-secondary" data-nav-home style="min-height:28px;padding:2px 8px;font-size:0.7rem">← Change Deck</button></div><div class="session-stats"><span><strong data-progress>1</strong> / <span data-total>10</span></span><span class="timer" data-timer-wrap hidden>⏱ <strong data-timer>60</strong>s</span></div></div>
       <div class="progress-track" aria-hidden="true"><span data-progress-bar></span></div>
       <div class="problem-card" data-problem-card>
         <p class="problem-label">Solve for the integer</p>
