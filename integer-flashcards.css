@@ -11,3 +11,54 @@
 .sr-only { position:absolute!important; width:1px!important; height:1px!important; padding:0!important; margin:-1px!important; overflow:hidden!important; clip:rect(0,0,0,0)!important; white-space:nowrap!important; border:0!important; }
 @media (max-width:760px) { .shell { width:min(calc(100% - 28px),var(--content)); } .back-link { display:none; } .intro { display:block; } .privacy-note { max-width:none; margin-top:22px; } .choice-grid-5 { grid-template-columns:repeat(2,1fr); } .choice-card:first-child { grid-column:span 2; min-height:76px; flex-direction:row; align-items:center; } .settings-row { grid-template-columns:1fr; gap:18px; } .practice-topline { align-items:flex-start; } .muted { display:block; margin:5px 0 0; } .session-stats { align-items:flex-end; flex-direction:column; gap:3px; } .expression { min-height:92px; } .answer-row { display:grid; grid-template-columns:1fr; } .answer-row .button { width:100%; } .shortcut-row { flex-wrap:wrap; gap:9px 14px; } .app-footer .shell { display:block; } .app-footer span { display:block; } .app-footer span+span { margin-top:5px; } }
 @media (prefers-reduced-motion:reduce) { *,*::before,*::after { scroll-behavior:auto!important; transition-duration:.01ms!important; animation-duration:.01ms!important; } }
+
+/* --- Enhanced Interactive Manipulatives --- */
+:root {
+  --pos-chip: #d97706; --pos-chip-bg: #fef3c7; --pos-chip-border: #f59e0b;
+  --neg-chip: #dc2626; --neg-chip-bg: #fee2e2; --neg-chip-border: #ef4444;
+}
+[data-theme="dark"] {
+  --pos-chip: #fbbf24; --pos-chip-bg: #35250a; --pos-chip-border: #d97706;
+  --neg-chip: #f87171; --neg-chip-bg: #381216; --neg-chip-border: #ef4444;
+}
+.manipulative-box { margin-top: 18px; border: 1px solid var(--line); border-radius: 16px; background: var(--surface); overflow: hidden; }
+.manipulative-tabs { display: flex; border-bottom: 1px solid var(--line); background: var(--surface-2); overflow-x: auto; }
+.manip-tab { display: inline-flex; align-items: center; gap: 7px; padding: 10px 16px; border: 0; background: none; color: var(--muted); font-size: 0.82rem; font-weight: 800; cursor: pointer; border-bottom: 2.5px solid transparent; }
+.manip-tab.active { color: var(--brand); border-bottom-color: var(--brand); background: var(--surface); }
+.manip-content { padding: 18px; }
+.manip-headline { margin: 0 0 10px; font-size: 0.98rem; font-weight: 800; color: var(--ink); }
+.manip-instructions { margin: 0 0 14px; font-size: 0.84rem; color: var(--muted); }
+.manip-toolbar { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; }
+.btn-chip-action { padding: 6px 12px; border-radius: 999px; font-size: 0.76rem; font-weight: 800; border: 1px solid var(--line); background: var(--surface-2); color: var(--ink); cursor: pointer; }
+.btn-chip-action:hover { border-color: var(--brand); color: var(--brand); }
+.counters-arena { display: grid; gap: 14px; }
+.counter-group-label { font-size: 0.72rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.06em; color: var(--faint); margin-bottom: 6px; }
+.counters-zone { display: flex; flex-wrap: wrap; gap: 8px; min-height: 48px; padding: 10px; border-radius: 12px; background: var(--surface-2); border: 1.5px dashed var(--line); align-items: center; }
+.chip { width: 40px; height: 40px; display: inline-flex; align-items: center; justify-content: center; border-radius: 50%; font-weight: 900; font-size: 1.05rem; cursor: pointer; user-select: none; transition: transform 0.18s, box-shadow 0.18s; border: 2px solid transparent; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+.chip:hover { transform: scale(1.1); }
+.chip.pos { background: var(--pos-chip-bg); color: var(--pos-chip); border-color: var(--pos-chip-border); }
+.chip.neg { background: var(--neg-chip-bg); color: var(--neg-chip); border-color: var(--neg-chip-border); }
+.chip.selected { transform: scale(1.15) translateY(-2px); box-shadow: 0 0 0 3px var(--brand); }
+.zero-pair-container { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px; }
+.zero-pair-slot { display: inline-flex; align-items: center; gap: 5px; padding: 6px 10px; border-radius: 999px; border: 1.5px dashed var(--faint); background: var(--surface); }
+.zero-pair-slot.cancelled { opacity: 0.5; border-style: solid; border-color: var(--line); text-decoration: line-through; }
+.zero-pair-badge { font-size: 0.68rem; font-weight: 850; color: var(--muted); margin-left: 4px; }
+.remaining-zone { margin-top: 12px; padding: 12px 14px; border-radius: 12px; background: var(--surface-2); border: 1px solid var(--line); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
+.number-line-stage { padding: 14px 10px 8px; background: var(--surface-2); border-radius: 12px; border: 1px solid var(--line); }
+.number-line-svg-wrap { width: 100%; overflow-x: auto; }
+.number-line-svg { width: 100%; min-width: 500px; height: 120px; display: block; }
+.nl-axis { stroke: var(--line); stroke-width: 3; stroke-linecap: round; }
+.nl-tick { stroke: var(--line); stroke-width: 2; }
+.nl-tick.zero { stroke: var(--ink); stroke-width: 3.5; }
+.nl-label { font-family: inherit; font-size: 11px; font-weight: 700; fill: var(--muted); text-anchor: middle; }
+.nl-label.zero { font-weight: 900; font-size: 12px; fill: var(--ink); }
+.nl-jump-path { fill: none; stroke: var(--accent); stroke-width: 3.5; stroke-linecap: round; stroke-dasharray: 6 4; }
+.nl-pin-start { fill: var(--brand); }
+.nl-pin-end { fill: var(--success); }
+.nl-jumper { font-size: 22px; }
+.hop-readout { margin-top: 12px; font-size: 0.84rem; font-weight: 700; color: var(--ink); background: var(--surface); padding: 8px 12px; border-radius: 8px; border: 1px solid var(--line); }
+.sign-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 10px; }
+.sign-card { padding: 12px; border-radius: 10px; border: 1.5px solid var(--line); background: var(--surface-2); text-align: center; }
+.sign-card.active { border-color: var(--brand); background: var(--brand-soft); }
+.sign-card-math { font-size: 1.15rem; font-weight: 900; margin-bottom: 3px; }
+.sign-card-rule { font-size: 0.74rem; font-weight: 700; color: var(--muted); }

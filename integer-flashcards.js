@@ -147,21 +147,248 @@
     return `<h3>${title}</h3><p>${copy}</p>${problem.level === 2 ? `<ol class="step-list">${steps}</ol>` : ""}<p class="answer-reveal">Answer: <strong>${answer}</strong></p>`;
   }
 
-  function getVisualModel(problem) {
-    if (problem.visual === "number-line") {
-      const start = problem.numbers[0];
-      const end = problem.answer;
-      const min = Math.min(start, end) - 2;
-      const max = Math.max(start, end) + 2;
-      const range = max - min;
-      const ticks = Array.from({ length: range + 1 }, (_, index) => { const value = min + index; return `<span class="tick" style="left:${(index / range) * 100}%"><span>${value}</span></span>`; }).join("");
-      const left = ((start - min) / range) * 100;
-      const width = Math.abs(end - start) / range * 100;
-      const direction = end >= start ? "right" : "left";
-      return `<p><strong>Number-line view</strong> Start at ${formatAccessibleNumber(start)} and move ${Math.abs(end - start)} spaces ${direction}.</p><div class="number-line">${ticks}<span class="jump" style="left:${Math.min(left, left + (direction === "right" ? width : -width))}%;width:${width}%"></span></div>`;
+  // Interactive Manipulative State for Class Website
+  let manipTab = "counters";
+  let activeChips = [];
+  let formedPairs = [];
+  let selectedChipId = null;
+
+  function initInteractiveCounters(problem) {
+    let num1 = problem.numbers[0];
+    let num2 = problem.numbers[1];
+    if (problem.operation === "subtraction") num2 = -num2;
+    activeChips = [];
+    formedPairs = [];
+    selectedChipId = null;
+    let id = 1;
+    function add(qty, isPos) {
+      for (let i = 0; i < Math.abs(qty); i++) {
+        activeChips.push({ id: `c-${id++}`, sign: isPos ? "pos" : "neg", cancelled: false });
+      }
     }
-    const same = problem.numbers[0] < 0 === problem.numbers[1] < 0;
-    return `<p><strong>Sign-pair view</strong> ${same ? "Matching signs make a positive result." : "Different signs make a negative result."} Then calculate with the absolute values.</p>`;
+    if (["addition", "subtraction"].includes(problem.operation)) {
+      add(num1, num1 >= 0);
+      add(num2, num2 >= 0);
+    } else {
+      add(problem.answer, problem.answer >= 0);
+    }
+  }
+
+  function getVisualModel(problem) {
+    const isMulDiv = ["multiplication", "division"].includes(problem.operation);
+    if (isMulDiv && manipTab === "counters") manipTab = "signrules";
+
+    return `
+      <div class="manipulative-box" data-manip-box>
+        <div class="manipulative-tabs">
+          <button type="button" class="manip-tab ${manipTab === 'counters' ? 'active' : ''}" data-mtab="counters">🟡🔴 Zero Pairs</button>
+          <button type="button" class="manip-tab ${manipTab === 'numberline' ? 'active' : ''}" data-mtab="numberline">📏 Number Line</button>
+          ${isMulDiv ? `<button type="button" class="manip-tab ${manipTab === 'signrules' ? 'active' : ''}" data-mtab="signrules">⚡ Sign Rules</button>` : ''}
+        </div>
+        <div class="manip-content" data-mcontent></div>
+      </div>
+    `;
+  }
+
+  function renderManipContent(container, problem) {
+    if (manipTab === "counters") renderCountersContent(container, problem);
+    else if (manipTab === "numberline") renderNumberLineContent(container, problem);
+    else if (manipTab === "signrules") renderSignRulesContent(container, problem);
+  }
+
+  function renderCountersContent(container, problem) {
+    const isMulDiv = ["multiplication", "division"].includes(problem.operation);
+    if (isMulDiv) {
+      container.innerHTML = `
+        <h4 class="manip-headline">Counter Representation</h4>
+        <div class="counters-zone">
+          ${activeChips.map(c => `<div class="chip ${c.sign}">${c.sign === 'pos' ? '+1' : '−1'}</div>`).join('')}
+        </div>
+      `;
+      return;
+    }
+    const uncancelled = activeChips.filter(c => !c.cancelled);
+    const posLeft = uncancelled.filter(c => c.sign === "pos").length;
+    const negLeft = uncancelled.filter(c => c.sign === "neg").length;
+    const pairsCount = formedPairs.length;
+
+    container.innerHTML = `
+      <h4 class="manip-headline">Interactive Zero-Pair Counters</h4>
+      <p class="manip-instructions">Click a <strong>(+1) Yellow</strong> and <strong>(−1) Red</strong> chip to form a Zero Pair $(+1 + -1 = 0)$, or use Auto-Pair.</p>
+      <div class="manip-toolbar">
+        <button type="button" class="btn-chip-action" data-auto-pair>✨ Auto-Pair All</button>
+        <button type="button" class="btn-chip-action" data-reset-chips>↺ Reset</button>
+      </div>
+      <div class="counters-arena">
+        <div>
+          <div class="counter-group-label">Active Chips</div>
+          <div class="counters-zone">
+            ${uncancelled.length === 0 ? '<span style="font-size:0.8rem;color:var(--muted)">All chips have cancelled into zero pairs! Total = 0</span>' : uncancelled.map(c => `
+              <button type="button" class="chip ${c.sign} ${c.id === selectedChipId ? 'selected' : ''}" data-cid="${c.id}">
+                ${c.sign === 'pos' ? '+1' : '−1'}
+              </button>
+            `).join('')}
+          </div>
+        </div>
+        ${pairsCount > 0 ? `
+          <div>
+            <div class="counter-group-label">Formed Zero Pairs (${pairsCount} = 0)</div>
+            <div class="zero-pair-container">
+              ${formedPairs.map((p, i) => `
+                <div class="zero-pair-slot cancelled">
+                  <span class="chip pos" style="width:30px;height:30px;font-size:0.8rem">+1</span>
+                  <span class="chip neg" style="width:30px;height:30px;font-size:0.8rem">−1</span>
+                  <span class="zero-pair-badge">Pair ${i+1} = 0</span>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+        ` : ''}
+        <div class="remaining-zone">
+          <div>Remainder: <strong>${posLeft > 0 ? `+${posLeft}` : (negLeft > 0 ? `−${negLeft}` : '0')}</strong></div>
+          <div>Answer: <strong>${formatNumber(problem.answer, 0)}</strong></div>
+        </div>
+      </div>
+    `;
+
+    container.querySelectorAll("[data-cid]").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const id = btn.dataset.cid;
+        if (!selectedChipId) {
+          selectedChipId = id;
+          renderCountersContent(container, problem);
+        } else if (selectedChipId === id) {
+          selectedChipId = null;
+          renderCountersContent(container, problem);
+        } else {
+          const first = activeChips.find(c => c.id === selectedChipId);
+          const second = activeChips.find(c => c.id === id);
+          if (first && second && first.sign !== second.sign) {
+            first.cancelled = true;
+            second.cancelled = true;
+            formedPairs.push({ pos: first.id, neg: second.id });
+            selectedChipId = null;
+            renderCountersContent(container, problem);
+          } else {
+            selectedChipId = id;
+            renderCountersContent(container, problem);
+          }
+        }
+      });
+    });
+
+    container.querySelector("[data-auto-pair]")?.addEventListener("click", () => {
+      while (true) {
+        const pos = activeChips.find(c => !c.cancelled && c.sign === "pos");
+        const neg = activeChips.find(c => !c.cancelled && c.sign === "neg");
+        if (pos && neg) {
+          pos.cancelled = true;
+          neg.cancelled = true;
+          formedPairs.push({ pos: pos.id, neg: neg.id });
+        } else break;
+      }
+      selectedChipId = null;
+      renderCountersContent(container, problem);
+    });
+
+    container.querySelector("[data-reset-chips]")?.addEventListener("click", () => {
+      initInteractiveCounters(problem);
+      renderCountersContent(container, problem);
+    });
+  }
+
+  function renderNumberLineContent(container, problem) {
+    const startVal = problem.numbers[0];
+    const endVal = problem.answer;
+    let minVal = Math.min(startVal, endVal, 0) - 2;
+    let maxVal = Math.max(startVal, endVal, 0) + 2;
+    if (maxVal - minVal < 10) { minVal -= 2; maxVal += 2; }
+    const span = maxVal - minVal;
+    const svgW = 560;
+    const pad = 35;
+    const axisY = 75;
+    const plotW = svgW - (pad * 2);
+    const valX = (v) => pad + ((v - minVal) / span) * plotW;
+    const startX = valX(startVal);
+    const endX = valX(endVal);
+    const midX = (startX + endX) / 2;
+    const arcH = Math.min(50, Math.max(25, Math.abs(endX - startX) * 0.3));
+    const arcY = axisY - arcH;
+    const pathD = `M ${startX} ${axisY} Q ${midX} ${arcY - 10} ${endX} ${axisY}`;
+
+    let ticks = "";
+    for (let v = minVal; v <= maxVal; v++) {
+      const x = valX(v);
+      const isZ = v === 0;
+      ticks += `
+        <line x1="${x}" y1="${axisY - (isZ ? 12 : 6)}" x2="${x}" y2="${axisY + (isZ ? 12 : 6)}" class="nl-tick ${isZ ? 'zero' : ''}" />
+        <text x="${x}" y="${axisY + 24}" class="nl-label ${isZ ? 'zero' : ''}">${v}</text>
+      `;
+    }
+
+    container.innerHTML = `
+      <h4 class="manip-headline">Animated Number Line Jumper</h4>
+      <div class="manip-toolbar">
+        <button type="button" class="btn-chip-action" data-replay-hop>🐸 Replay Hop</button>
+      </div>
+      <div class="number-line-stage">
+        <div class="number-line-svg-wrap">
+          <svg class="number-line-svg" viewBox="0 0 ${svgW} 115">
+            <line x1="${pad - 10}" y1="${axisY}" x2="${svgW - pad + 10}" y2="${axisY}" class="nl-axis" />
+            ${ticks}
+            <path d="${pathD}" class="nl-jump-path" />
+            <circle cx="${startX}" cy="${axisY}" r="5" class="nl-pin-start" />
+            <circle cx="${endX}" cy="${axisY}" r="6" class="nl-pin-end" />
+            <text id="cw-frog" class="nl-jumper" x="${startX - 10}" y="${axisY - 8}">🐸</text>
+          </svg>
+        </div>
+        <div class="hop-readout">
+          Start at <strong>${formatNumber(startVal, 0)}</strong>, hop <strong>${Math.abs(endVal - startVal)}</strong> spaces <strong>${endVal >= startVal ? 'right' : 'left'}</strong>, landing on <strong>${formatNumber(endVal, 0)}</strong>.
+        </div>
+      </div>
+    `;
+
+    function hop() {
+      const frog = container.querySelector("#cw-frog");
+      if (!frog) return;
+      const t0 = performance.now();
+      function step(now) {
+        const t = Math.min(1, (now - t0) / 900);
+        const curX = Math.pow(1-t,2)*startX + 2*(1-t)*t*midX + Math.pow(t,2)*endX;
+        const curY = Math.pow(1-t,2)*axisY + 2*(1-t)*t*(arcY - 10) + Math.pow(t,2)*axisY;
+        frog.setAttribute("x", curX - 10);
+        frog.setAttribute("y", curY - 6);
+        if (t < 1) requestAnimationFrame(step);
+      }
+      requestAnimationFrame(step);
+    }
+    setTimeout(hop, 100);
+    container.querySelector("[data-replay-hop]")?.addEventListener("click", hop);
+  }
+
+  function renderSignRulesContent(container, problem) {
+    const first = problem.numbers[0];
+    const second = problem.numbers[1];
+    const opSym = problem.operation === "multiplication" ? "×" : "÷";
+    const fPos = first >= 0;
+    const sPos = second >= 0;
+    const rules = [
+      { math: `(+) ${opSym} (+) = (+)`, desc: "Same signs make a positive.", match: fPos && sPos },
+      { math: `(+) ${opSym} (−) = (−)`, desc: "Different signs make a negative.", match: fPos && !sPos },
+      { math: `(−) ${opSym} (+) = (−)`, desc: "Different signs make a negative.", match: !fPos && sPos },
+      { math: `(−) ${opSym} (−) = (+)`, desc: "Same signs make a positive.", match: !fPos && !sPos }
+    ];
+    container.innerHTML = `
+      <h4 class="manip-headline">Sign Rules</h4>
+      <div class="sign-grid">
+        ${rules.map(r => `
+          <div class="sign-card ${r.match ? 'active' : ''}">
+            <div class="sign-card-math">${r.math}</div>
+            <div class="sign-card-rule">${r.desc}</div>
+          </div>
+        `).join('')}
+      </div>
+    `;
   }
 
   function startSession(settings) {
@@ -177,6 +404,7 @@
   function loadNextProblem() {
     if (state.settings.mode !== "timed" && state.session.index >= state.session.total) return finishSession();
     state.currentProblem = generateProblem(state.settings);
+    initInteractiveCounters(state.currentProblem);
     state.session.index += 1;
     state.explanationOpen = false;
     state.visualOpen = false;
@@ -219,6 +447,21 @@
     explanation.innerHTML = getExplanation(state.currentProblem) + (state.visualOpen ? getVisualModel(state.currentProblem) : "");
     explanation.hidden = false;
     $("[data-visual-button]").textContent = state.visualOpen ? "Hide visual" : "Show a visual";
+
+    if (state.visualOpen) {
+      const box = explanation.querySelector("[data-manip-box]");
+      if (box) {
+        const content = box.querySelector("[data-mcontent]");
+        renderManipContent(content, state.currentProblem);
+        box.querySelectorAll("[data-mtab]").forEach(btn => {
+          btn.addEventListener("click", () => {
+            manipTab = btn.dataset.mtab;
+            box.querySelectorAll("[data-mtab]").forEach(b => b.classList.toggle("active", b === btn));
+            renderManipContent(content, state.currentProblem);
+          });
+        });
+      }
+    }
   }
 
   function nextCard() { if (state.session.index >= state.session.total && state.settings.mode !== "timed") finishSession(); else { state.session.locked = false; loadNextProblem(); } }
